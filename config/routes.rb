@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-
+  
+  resources :tenants do
+    resources :projects
+  end
   resources :members
   get 'home/index'
 
@@ -15,7 +18,7 @@ Rails.application.routes.draw do
     :registrations => "milia/registrations",
     :confirmations => "confirmations",
     :sessions => "milia/sessions",
-    :passwords => "milia/passwords",
+    :passwords => "milia/passwords"
   }
 
 
