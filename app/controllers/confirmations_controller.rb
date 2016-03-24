@@ -39,7 +39,7 @@ class ConfirmationsController < Milia::ConfirmationsController
       end
 
       if @confirmable.skip_confirm_change_password
-        sign_in_tenanted(resource)
+        sign_in_tenanted_and_redirect(resource)
       end
     else
       log_action( "password set form" )
