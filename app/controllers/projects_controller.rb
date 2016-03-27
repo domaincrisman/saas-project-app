@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.by_user_plan_and_tenant(params[:user_id], current_user)
+    @projects = Project.by_user_plan_and_tenant(params[:tenant_id], current_user)
   end
 
   # GET /projects/1
@@ -60,8 +60,8 @@ class ProjectsController < ApplicationController
   end
 
   def users
-    @project_users = (@project.users + (User.where(tenant.id: @tenant.id, is_admin: true))) - [current_user]
-    @other_users = @tenant.users.where(tenant_id: @tenant.id, is_admin: false) - (@project_users + [current_user])
+    @project_users = (@project.users + (User.where(tenant_id: @tenant.id, is_admin: true))) - [current_user]
+    @other_users = @tenant.users.where(is_admin: false) - (@project_users + [current_user])
   end
 
   def add_user
@@ -69,12 +69,13 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project_user.save
-        format.hmtl {redirect_to users_tenant_project_url(id: @project.id, tenant_id: @project.tenant_id),
+        format.html {redirect_to users_tenant_project_url(id: @project.id, tenant_id: @project.tenant_id),
           notice: "User was successfully added to project" }
       else
-        format.hmtl {redirect_to users_tenant_project_url(id: @project.id, tenant_id: @project.tenant_id),
+        format.html {redirect_to users_tenant_project_url(id: @project.id, tenant_id: @project.tenant_id),
           error: "User was not added to project" }
       end
+    end
   end
 
   private
