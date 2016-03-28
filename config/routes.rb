@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     :registrations => "registrations",
     :confirmations => "confirmations",
     :sessions => "milia/sessions",
-    :passwords => "milia/passwords"
+    :passwords => "milia/passwords",
   }
 
   match '/plan/edit' => 'tenants#edit', via: :get, as: :edit_plan
