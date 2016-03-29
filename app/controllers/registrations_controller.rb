@@ -39,14 +39,14 @@ def create
             rescue Exception => e
               flash[:error] = e.message
               @tenant.destroy
-              log_action('Payment failed')
+              log_action("Payment failed")
               render :new and return
             end
         end
       else
         resource.valid?
         log_action( "tenant create failed", @tenant )
-        render :new and return
+        render :new
       end # if .. then .. else no tenant errors
       if flash[:error].blank? || flash[:error].empty? #payment successful
         initiate_tenant( @tenant )    # first time stuff for new tenant
@@ -75,7 +75,7 @@ def create
     resource.valid?
     @tenant.valid?
     log_action( "recaptcha failed", resource )
-    render :new and return
+    render :new
   end
 
 end   # def create
