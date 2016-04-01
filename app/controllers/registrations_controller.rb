@@ -1,6 +1,6 @@
 class RegistrationsController < Milia::RegistrationsController
 
-  skip_before_action :authenticate_tenant!, :only => [:new, :create, :cancel]
+  skip_before_action :authenticate_tenant!, :only => [:new, :create, :edit, :cancel]
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
